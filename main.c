@@ -42,7 +42,7 @@ int main() {
     char url[1024] = "https://api.hackerone.com/v1/hackers/programs";
 
     curl_easy_setopt(curl, CURLOPT_USERPWD,
-        "<username>:<password>");
+        "<username>:<apikey>");
 
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 
