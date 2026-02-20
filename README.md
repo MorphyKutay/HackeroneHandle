@@ -9,6 +9,7 @@ A C program that scans all HackerOne programs via the API, fetches **structured 
 - ✅ Structured scopes fetch for each program
 - ✅ Filters only scopes where `eligible_for_bounty` and `eligible_for_submission` are true
 - ✅ Output: `scopes.txt` (one asset_identifier per line)
+- ✅ Optional wildcard extraction: `wildcards.txt` (scopes starting with `*.`)
 - ✅ Basic Authentication support
 
 ## Requirements
@@ -71,10 +72,12 @@ When the program runs:
 - Scopes are fetched for each program
 - Eligible scopes are written to `scopes.txt`
 - A success message is shown when the process completes
+- Optionally, you can extract wildcard scopes (Y/N) to create `wildcards.txt`
 
-### 3. Output File
+### 3. Output Files
 
-The program writes `asset_identifier` values of eligible scopes to `scopes.txt`. One asset per line (e.g. `*.example.com`, `api.example.com`).
+- **scopes.txt**: All eligible `asset_identifier` values (one per line, e.g. `*.example.com`, `api.example.com`)
+- **wildcards.txt** (optional): If you choose Y when prompted, only scopes starting with `*.` are extracted to this file
 
 ## Example Output
 
@@ -86,6 +89,10 @@ Scopes fetched: program1
 Scopes fetched: program2
 ...
 All scopes saved to scopes.txt ✅
+
+Do you Want Wildcard Scopes (Y/N) : Y
+Finded Wildcard: *.example.com
+Finded Wildcard: *.api.example.com
 ```
 
 ## API Documentation

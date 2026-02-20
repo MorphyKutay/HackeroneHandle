@@ -186,5 +186,50 @@ int main() {
 
     printf("\nAll scopes saved to scopes.txt ✅\n");
 
+
+    char wildcard[5];
+    printf("Do you Want Wildcard Scopes (Y/N) : ");
+    fgets(wildcard,sizeof(wildcard),stdin);
+
+    wildcard[strcspn(wildcard,"\n")] = 0;
+
+    if(wildcard[0] == 'Y' || wildcard[0] == 'y'){
+            FILE *wild = fopen("scopes.txt","r");
+            char line[256];
+            //wild = fopen("scopes.txt","r");
+
+            if(wild == NULL){
+                printf("FILE ERROR!!");
+                return 1;
+
+            }
+
+
+            FILE *out = fopen("wildcards.txt","w");
+            if (!out){
+                printf("wildcards.txt error");
+                //fclose(wildcards);
+                return 1;
+            }
+
+            while (fgets(line,sizeof(line),wild)){
+
+                    if (strncmp(line,"*.",2) == 0){
+                        printf("Finded Wildcard: %s",line);
+                        fprintf(out,"%s",line);
+                    }
+            }
+
+        fclose(wild);
+        fclose(out);
+    }else{
+
+            return 1;
+
+    }
+
+
+    //fclose(wild);
+    //fclose(out);
     return 0;
 }
