@@ -92,6 +92,21 @@ void fetch_scopes(CURL *curl, const char *handle, FILE *out) {
 
 int main() {
 
+
+    char auth[100];
+
+    printf("Enter Username : ");
+    fgets(auth,sizeof(auth),stdin);
+
+    auth[strcspn(auth,"\n")] = 0;
+
+    strcat(auth,":");
+    printf("Enter Api Key : ");
+
+    fgets(auth + strlen(auth),sizeof(auth) - strlen(auth),stdin);
+    auth[strcspn(auth,"\n")] = 0;
+
+
     CURL *curl = curl_easy_init();
     if (!curl) {
         printf("Curl init failed\n");
@@ -105,8 +120,7 @@ int main() {
     }
 
     // 🔑 HackerOne API credentials
-    curl_easy_setopt(curl, CURLOPT_USERPWD,
-        "<username>:<apikey>");
+    curl_easy_setopt(curl, CURLOPT_USERPWD,auth);
 
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
 

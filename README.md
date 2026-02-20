@@ -56,14 +56,7 @@ gcc main.c -o hackerone_fetcher -lcurl -lcjson
 
 ### 1. API Credentials
 
-Update the credentials on lines 107-108 of `main.c`:
-
-```c
-curl_easy_setopt(curl, CURLOPT_USERPWD,
-    "<username>:<apikey>");
-```
-
-**Note:** You can use your HackerOne API token. The format is typically `username:token`.
+When the program runs, it prompts you for your username and API key. The HackerOne API token format is typically `username:token`.
 
 ### 2. Running the Program
 
@@ -72,9 +65,11 @@ curl_easy_setopt(curl, CURLOPT_USERPWD,
 ```
 
 When the program runs:
+- First enter your **Username**
+- Then enter your **API Key**
 - Progress messages are displayed for each program page
 - Scopes are fetched for each program
-- All eligible scopes are written to `scopes.txt`
+- Eligible scopes are written to `scopes.txt`
 - A success message is shown when the process completes
 
 ### 3. Output File
@@ -84,6 +79,8 @@ The program writes `asset_identifier` values of eligible scopes to `scopes.txt`.
 ## Example Output
 
 ```
+Enter Username : your_username
+Enter Api Key : your_api_token
 Fetching programs page 1...
 Scopes fetched: program1
 Scopes fetched: program2
