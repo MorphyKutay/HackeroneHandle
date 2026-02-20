@@ -1,18 +1,17 @@
-# HackerOne Program Fetcher
+# HackerOne Scope Fetcher
 
-A C program that automatically fetches all hacker programs from the HackerOne API and saves them in JSON format.
+A C program that scans all HackerOne programs via the API, fetches **structured scopes** (asset_identifier) for each program, and saves bounty/submission-eligible scopes to `scopes.txt`.
 
 ## Features
 
-- ✅ Integration with HackerOne API v1
-- ✅ Automatic pagination support
-- ✅ Download all programs in one go
-- ✅ Create output file in JSON format
+- ✅ HackerOne API v1 integration
+- ✅ Automatic pagination for program list
+- ✅ Structured scopes fetch for each program
+- ✅ Filters only scopes where `eligible_for_bounty` and `eligible_for_submission` are true
+- ✅ Output: `scopes.txt` (one asset_identifier per line)
 - ✅ Basic Authentication support
 
 ## Requirements
-
-You need the following libraries to compile and run this program:
 
 - **libcurl**: For HTTP requests
 - **cJSON**: For JSON parsing
@@ -55,16 +54,16 @@ gcc main.c -o hackerone_fetcher -lcurl -lcjson
 
 ## Usage
 
-### 1. Setting Up Credentials
+### 1. API Credentials
 
-Update your username and password in lines 44-45 of the `main.c` file:
+Update the credentials on lines 107-108 of `main.c`:
 
 ```c
 curl_easy_setopt(curl, CURLOPT_USERPWD,
-    "username:password");
+    "<username>:<apikey>");
 ```
 
-**Note:** You can use your HackerOne API token. The token format is usually `username:token`.
+**Note:** You can use your HackerOne API token. The format is typically `username:token`.
 
 ### 2. Running the Program
 
@@ -73,21 +72,23 @@ curl_easy_setopt(curl, CURLOPT_USERPWD,
 ```
 
 When the program runs:
-- Progress messages are displayed for each page
-- All data is saved to the `output.json` file
-- A success message is displayed when the process is complete
+- Progress messages are displayed for each program page
+- Scopes are fetched for each program
+- All eligible scopes are written to `scopes.txt`
+- A success message is shown when the process completes
 
 ### 3. Output File
 
-The program writes all downloaded program data to the `output.json` file. Each page is stored in JSON format on a separate line.
+The program writes `asset_identifier` values of eligible scopes to `scopes.txt`. One asset per line (e.g. `*.example.com`, `api.example.com`).
 
 ## Example Output
 
 ```
-Fetching page 1...
-Fetching page 2...
-Fetching page 3...
-All pages downloaded ✅
+Fetching programs page 1...
+Scopes fetched: program1
+Scopes fetched: program2
+...
+All scopes saved to scopes.txt ✅
 ```
 
 ## API Documentation
